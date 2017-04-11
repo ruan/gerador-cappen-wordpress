@@ -1,10 +1,10 @@
 {
-  "name": "generator-cappen-site",
-  "version": "2.5.4",
+  "name": "generator-cappen-wordpress",
+  "version": "0.1.1",
   "description": "Yeoman generator",
   "license": "MIT",
   "main": "app/index.js",
-  "repository": "ruan/generator-cappen-site",
+  "repository": "ruan/generator-cappen-wordpress",
   "author": {
     "name": "Ruan Candido",
     "email": "ruan1808@gmail.com",
