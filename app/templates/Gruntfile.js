@@ -6,7 +6,7 @@ module.exports = function(grunt) {
 
     var config = {
         app: 'app',
-        theme: 'wordpress/wp-content/themes/site'
+        theme: 'wordpress/wp-content/themes/<%= theme %>'
     };
 
     grunt.initConfig({
@@ -72,18 +72,6 @@ module.exports = function(grunt) {
         clean: {
             app: ['<%= config.theme %>/*', '.tmp/*'],
             js: ['<%= config.theme %>/scripts/vendor']
-        },
-
-        sass_globbing: {
-            my_target: {
-                files: {
-                    '<%= config.app %>/scss/_import-map.scss': ['<%= config.app %>/scss/components/**/*.scss', '<%= config.app %>/scss/layouts/**/*.scss']
-                }
-            },
-            options: {
-                useSingleQuotes: false,
-                signature: '// components + layouts'
-            }
         },
 
         sass: {
@@ -225,7 +213,6 @@ module.exports = function(grunt) {
         grunt.task.run([
             'clean:app',
             'wiredep:app',
-            'sass_globbing',
             'sass:app',
             'copy:app',
             'concurrent:app',

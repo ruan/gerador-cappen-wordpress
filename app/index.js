@@ -9,10 +9,6 @@ var CappenSiteGenerator = yeoman.generators.Base.extend({
         var done = this.async();
         var prompts = [
             {
-                name: 'appName',
-                message: 'Qual é o nome do site?'
-            },
-            {
                 name: 'theme',
                 message: 'Qual é o nome do tema?'
             },
@@ -69,14 +65,13 @@ var CappenSiteGenerator = yeoman.generators.Base.extend({
             this.destinationPath('')
         )
         var context = {
-            site_name: this.appName,
+            theme: this.theme,
             id:this._.underscored(this.appName).replace(/_/g,'-')
         };
 
-        // this.template("_index.php", "app/index.php", context);
-        // this.template("_bower.json", "bower.json", context);
-        // this.template("_package.json", "package.json", context);
-        // this.template("_gruntfile.js", "Gruntfile.js", context);
+        this.template("bower.json", "bower.json", context);
+        this.template("package.json", "package.json", context);
+        this.template("Gruntfile.js", "Gruntfile.js", context);
     },
     installPlugins: function(){
         this.bowerInstall(this.plugins,{save:true});
