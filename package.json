@@ -1,0 +1,34 @@
+{
+  "name": "generator-cappen-site",
+  "version": "2.5.4",
+  "description": "Yeoman generator",
+  "license": "MIT",
+  "main": "app/index.js",
+  "repository": "ruan/generator-cappen-site",
+  "author": {
+    "name": "Ruan Candido",
+    "email": "ruan1808@gmail.com",
+    "url": "https://github.com/ruan"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "files": [
+    "app",
+    "pagina"
+  ],
+  "keywords": [
+    "yeoman-generator"
+  ],
+  "dependencies": {
+    "chalk": "^1.0.0",
+    "yeoman-generator": "^0.18.9",
+    "yosay": "^1.0.2"
+  },
+  "devDependencies": {
+    "mocha": "*"
+  }
+}
