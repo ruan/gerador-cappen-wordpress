@@ -47,17 +47,6 @@ var CappenSiteGenerator = yeoman.generators.Base.extend({
             done();
         }.bind(this));
     },
-    scaffoldFolders: function(){
-        // this.mkdir("app");
-        // this.mkdir("app/classes");
-        // this.mkdir("app/fonts");
-        // this.mkdir("app/img");
-        // this.mkdir("app/paginas/home");
-        // this.mkdir("app/scripts/vendor");
-        // this.mkdir("app/scss");
-        // this.mkdir("app/scss/components");
-        // this.mkdir("app/scss/layouts");
-    },
     copyMainFiles: function(){
         // this.copy("_gitignore", ".gitignore");
         this.fs.copy(
@@ -71,7 +60,7 @@ var CappenSiteGenerator = yeoman.generators.Base.extend({
 
         this.template("bower.json", "bower.json", context);
         this.template("package.json", "package.json", context);
-        this.template("Gruntfile.js", "Gruntfile.js", context);
+        //this.template("Gruntfile.js", "Gruntfile.js", context);
     },
     installPlugins: function(){
         this.bowerInstall(this.plugins,{save:true});
