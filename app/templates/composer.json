@@ -14,7 +14,6 @@
         "wpackagist-plugin/regenerate-thumbnails": "2.2.6"
     },
     "extra": {
-        "wordpress-install-dir": "wordpress",
         "installer-paths": {
             "wordpress/wp-content/plugins/{$name}/": ["type:wordpress-plugin"]
         }
