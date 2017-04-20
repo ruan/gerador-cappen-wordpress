@@ -1,0 +1,21 @@
+{
+    "repositories":[
+        {
+            "type":"composer",
+            "url":"https://wpackagist.org"
+        }
+    ],
+    "require": {
+        "php": ">=5.4",
+        "johnpbloch/wordpress": "4.7.3",
+        "wpackagist-plugin/advanced-custom-fields": "4.4.11",
+        "wpackagist-plugin/multiple-post-thumbnails": "1.6.6",
+        "wpackagist-plugin/simple-custom-post-order": "2.3.2",
+        "wpackagist-plugin/regenerate-thumbnails": "2.2.6"
+    },
+    "extra": {
+        "installer-paths": {
+            "wordpress/wp-content/plugins/{$name}/": ["type:wordpress-plugin"]
+        }
+    }
+}

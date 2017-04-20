@@ -6,7 +6,7 @@ module.exports = function(grunt) {
 
     var config = {
         app: 'app',
-        theme: 'wordpress/wp-content/themes/<%= theme %>'
+        theme: 'wordpress/wp-content/themes/<: slug :>'
     };
 
     grunt.initConfig({

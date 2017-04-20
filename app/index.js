@@ -5,12 +5,13 @@ var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
 
 var CappenSiteGenerator = yeoman.generators.Base.extend({
+
     promptUser: function() {
         var done = this.async();
         var prompts = [
             {
-                name: 'theme',
-                message: 'Qual é o nome do tema?'
+                name: 'appName',
+                message: 'Qual é o nome do site?'
             },
             {
                 type: 'checkbox',
@@ -41,26 +42,29 @@ var CappenSiteGenerator = yeoman.generators.Base.extend({
             }
         ];
         this.prompt(prompts, function (props) {
-            this.theme   = props.theme;
-            this.appName = props.appName;
+            this.slug = this._.slugify(props.appName);
             this.plugins = props.plugins;
             done();
         }.bind(this));
     },
     copyMainFiles: function(){
-        // this.copy("_gitignore", ".gitignore");
         this.fs.copy(
-            this.templatePath('*'),
+            this.templatePath('**'),
             this.destinationPath('')
         )
         var context = {
-            theme: this.theme,
-            id:this._.underscored(this.appName).replace(/_/g,'-')
+            slug: this.slug
         };
 
+        this.template("_.gitignore", ".gitignore");
         this.template("bower.json", "bower.json", context);
         this.template("package.json", "package.json", context);
-        //this.template("Gruntfile.js", "Gruntfile.js", context);
+
+        this._.templateSettings.interpolate = /<\:(.+?)\:>/g;
+        this._.templateSettings.escape = /<\:-(.*?)\:>/g;
+        this._.templateSettings.evaluate = /<\:=(.*?)\:>/g;
+
+        this.template("Gruntfile.js", "Gruntfile.js", context);
     },
     installPlugins: function(){
         this.bowerInstall(this.plugins,{save:true});

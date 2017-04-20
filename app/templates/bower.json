@@ -1,5 +1,5 @@
 {
-  "name": "<%= id %>",
+  "name": "<%= slug %>",
   "private": true,
   "dependencies": {
     "modernizr": "~2.6.2",

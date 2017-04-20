@@ -1,0 +1,17 @@
+.idea/
+.sass-cache/
+.tmp/
+styles/
+build/
+node_modules/
+bower_components/*/*
+wordpress/*
+wordpress/*/*
+!wordpress/*/
+!wordpress/wp-content/uploads/
+!wordpress/wp-content/plugins/
+!wordpress/wp-config.php
+*sublime*
+*.TODO
+vendor/*
+.vscode
