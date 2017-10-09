@@ -1,38 +1,33 @@
 <?php
 
-require_once 'redes-sociais.php';
+require_once 'social-networks.php';
 
 /**
- * Register Widgets
- *
- * Registra as posições dos Widgets do tema
- *
- * @return void
+ * Register positions for Widgets
  */
-function custom_widgets($name = "", $id = "", $class = "", $description = "", $before_widget = "", $after_widget = "", $before_title = "", $after_title = "")
+function custom_widgets($name = '', $id = '', $class = '', $description = '', $before_widget = '', $after_widget = '', $before_title = '', $after_title = '')
 {
-    $args = array(
-        'name'          => __($name, THEMETEXTDOMAIN),
-        'id'            => $id,
-        'class'         => $class,
-        'description'   => __($description, THEMETEXTDOMAIN),
+    $args = [
+        'name' => __($name, THEMETXTDOMAIN),
+        'id' => $id,
+        'class' => $class,
+        'description' => __($description, THEMETXTDOMAIN),
         'before_widget' => $before_widget,
-        'after_widget'  => $after_widget,
-        'before_title'  => $before_title,
-        'after_title'   => $after_title,
-    );
+        'after_widget' => $after_widget,
+        'before_title' => $before_title,
+        'after_title' => $after_title,
+    ];
 
     register_sidebar($args);
 }
 
 /**
- * Adiciona os widgets
- *
- * @return void
+ * Add the widgets.
  */
 function register_widgets()
 {
-    custom_widgets("Redes Sociais", "widget-redessociais", "", "Widget das Redes Sociais", "", "", "", "");
+    custom_widgets('Social Networks', 'widget-socialnetworks', '', 'Social Networks Widget', '', '', '', '');
+    custom_widgets('Upcoming Party', 'widget-upcoming-party', '', 'Upcoming Party Widget', '', '', '', '');
 }
 
-add_action("init", "register_widgets");
+add_action('init', 'register_widgets');

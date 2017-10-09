@@ -3,7 +3,7 @@
 }
 
 @function px-to-em($target-px, $context) {
-  @return ($target-px / $context) * 1em;
+    @return ($target-px / $context) * 1em;
 }
 
 @mixin clearfix {
@@ -20,4 +20,13 @@
         margin-right: - gutter();
         @include clearfix;
     }
+}
+
+@mixin hr($margin:0 auto, $color:#fff) {
+    display: block;
+    width: 50px;
+    height: 3px;
+    margin: $margin;
+    border: 0;
+    background-color: $color;
 }

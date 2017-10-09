@@ -4,7 +4,7 @@ var path = require('path');
 var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
 
-var CappenSiteGenerator = yeoman.generators.Base.extend({
+var CappenWordpressGenerator = yeoman.generators.Base.extend({
 
     promptUser: function() {
         var done = this.async();
@@ -56,7 +56,7 @@ var CappenSiteGenerator = yeoman.generators.Base.extend({
             slug: this.slug
         };
 
-        this.template("_.gitignore", ".gitignore");
+        this.template(".gitignore", ".gitignore");
         this.template("bower.json", "bower.json", context);
         this.template("package.json", "package.json", context);
 
@@ -69,7 +69,10 @@ var CappenSiteGenerator = yeoman.generators.Base.extend({
     installPlugins: function(){
         this.bowerInstall(this.plugins,{save:true});
         this.npmInstall();
+    },
+    install() {
+        this.spawnCommand('composer', ['install']);
     }
 });
 
-module.exports = CappenSiteGenerator;
+module.exports = CappenWordpressGenerator;

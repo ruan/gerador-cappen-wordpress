@@ -6,7 +6,7 @@ $defaults = [
     'container' => '',
     'container_class' => '',
     'container_id' => '',
-    'menu_class' => 'main-menu__link',
+    'menu_class' => 'menu-mobile__link',
     'menu_id' => '',
     'echo' => true,
     'fallback_cb' => 'wp_page_menu',
@@ -14,10 +14,10 @@ $defaults = [
     'after' => '',
     'link_before' => '',
     'link_after' => '',
-    'items_wrap' => '<ul class="main-menu' . (is_front_page() ? ' --left' : '') . '">%3$s</ul>',
+    'items_wrap' => '<nav class="menu-mobile"><a class="menu-mobile__btn-close" href="javascript:;"></a><h2 class="menu-mobile__title">brickhouse tavern</h2>%3$s</nav>',
     'depth' => 0,
     'walker' => new Menu(),
-    'isMobile' => false,
+    'isMobile' => true,
 ];
 
 wp_nav_menu($defaults);

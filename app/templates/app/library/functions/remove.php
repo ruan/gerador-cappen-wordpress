@@ -1,9 +1,6 @@
 <?php
-
 /**
- * Remove menu de Posts do Admin
- *
- * @return void
+ * Remove menu Posts from Admin.
  */
 function remove_menu_pages()
 {
@@ -13,9 +10,7 @@ function remove_menu_pages()
 add_action('admin_menu', 'remove_menu_pages');
 
 /**
- * Remove a exibição da versão do Wordpress no site
- *
- * @return void
+ * Do not show WP version
  */
 function remove_wp_version()
 {
@@ -25,9 +20,7 @@ function remove_wp_version()
 add_filter('the_generator', 'remove_wp_version');
 
 /**
- * Remove itens da dashboard
- *
- * @return void
+ * Remove unnecessary items from dashboard.
  */
 function remove_dashboard_meta()
 {
@@ -63,7 +56,7 @@ remove_action('do_feed_rss2', 'do_feed_rss2', 10, 1);
 remove_action('do_feed_atom', 'do_feed_atom', 10, 1);
 
 /**
- * Remove RSS links from wp_head
+ * Remove RSS links from wp_head.
  */
 function remove_rss_from_wp_head()
 {
@@ -87,21 +80,19 @@ remove_action('wp_head', 'rest_output_link_wp_head', 10);
 remove_action('wp_head', 'wp_oembed_add_discovery_links', 10);
 
 /**
- * Remove Recent Coments style
+ * Remove Recent Coments style.
  */
 function remove_recent_comments_style()
 {
     global $wp_widget_factory;
 
-    remove_action('wp_head', array($wp_widget_factory->widgets['WP_Widget_Recent_Comments'], 'recent_comments_style'));
+    remove_action('wp_head', [$wp_widget_factory->widgets['WP_Widget_Recent_Comments'], 'recent_comments_style']);
 }
 
 add_action('widgets_init', 'remove_recent_comments_style');
 
 /**
- * Remove admin bar from site
- *
- * @return void
+ * Remove admin bar from site when user is logged in.
  */
 function remove_admin_bar()
 {

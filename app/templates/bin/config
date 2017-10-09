@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+# import .env variables
+if [ -e .env ]; then
+	set -o allexport
+	source .env
+	set +o allexport
+fi
+
+RED='\033[0;31m'
+ORANGE='\033[0;33m'
+BLUE='\033[1;34m'
+NC='\033[0m' # No Color
+
+FILE='bin/config'
+
+function info {
+    echo -e "${ORANGE}${FILE}:${NC} ${1}"
+}
+
+function warn {
+    echo -e "${RED}${FILE}:${NC} ${1}"
+}
+
+function notice {
+    echo -e "${BLUE}${FILE}:${NC} ${1}"
+}
