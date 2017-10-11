@@ -1,5 +1,4 @@
-<?php get_template_part('templates/layouts/contact'); ?>
-<?php get_template_part('templates/layouts/footer-site'); ?>
+<?php get_template_part('templates/layouts/main-footer'); ?>
 
 <?php wp_footer(); ?>
 

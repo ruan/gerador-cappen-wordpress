@@ -1,6 +1,6 @@
 {
   "name": "generator-cappen-wordpress",
-  "version": "2.0.0",
+  "version": "4.0.0",
   "description": "Yeoman generator",
   "license": "MIT",
   "main": "app/index.js",

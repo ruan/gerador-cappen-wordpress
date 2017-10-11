@@ -1,17 +1,16 @@
 $(document).ready(function () {
-    var $btMenuMobile = $('.bt-menu-mobile');
-    var $btCloseMenuMobile = $('.menu-mobile__btn-close');
-    var $menuMobile = $('#menu-mobile .menu-mobile');
+  var $bgMenuMobile = $('.bg-menu-mobile');
+  var $btMenuMobile = $('.bt-menu-mobile');
+  var $menuMobile = $('#menu');
 
-    function openMenuMobile() {
-        $menuMobile.addClass('--open');
+  $btMenuMobile.click(function () {
+    $(this).toggleClass('--open');
+    if ($(this).hasClass('--open')) {
+      $bgMenuMobile.stop().fadeIn();
+      $menuMobile.addClass('--open');
+    } else {
+      $bgMenuMobile.stop().fadeOut();
+      $menuMobile.removeClass('--open');
     }
-    function closeMenuMobile() {
-        $menuMobile.removeClass('--open');
-    }
-    
-    $btMenuMobile.click(openMenuMobile);
-    $btCloseMenuMobile.click(closeMenuMobile);
-
+  });
 });
-
