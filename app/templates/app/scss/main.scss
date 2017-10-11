@@ -1,29 +1,13 @@
 // bower:scss
-@import "../../bower_components/csstyle/csstyle.scss";
-@import "../../bower_components/susy/sass/_susy.scss";
-@import "../../bower_components/sassy-maps/sass/_sassy-maps.scss";
-@import "../../bower_components/breakpoint-sass/stylesheets/_breakpoint.scss";
-@import "../../bower_components/normalize-libsass/_normalize.scss";
-@import "../../bower_components/font-awesome/scss/font-awesome.scss";
 // endbower
 
 @import "settings";
-@import "tools";
+@import "mixins";
 @import "fonts";
-@import "base";
 @import "generic";
+@import "base";
 @import "trumps";
 
-@import "components/bt-menu-mobile";
-@import "components/container";
-@import "components/row";
-@import "components/logo";
-@import "components/main-menu";
-@import "components/menu-mobile";
-@import "components/table";
-@import "components/title";
-@import "components/wp-contact-form";
-@import "components/description";
+@import "components";
 
-
-// @import "layouts/";
+@import "layouts";

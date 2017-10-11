@@ -1,122 +1,35 @@
 @include component(main-menu) {
-    text-align: center;
-    font-family: 'Montserrat';
-    font-weight: bold;
-    font-size: 16px;
     @include part(link) {
         display: inline-block;
         position: relative;
-        color: #fff;
-        margin: 0 10px;
-        padding: 25px 0 20px;
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 50px;
+        color: #666;
+        margin: 0 13px;
         text-transform: uppercase;
-        @include option(sub) {
-            i {
-                margin-left: 5px;
-            }
-        }
-        >a {
-            position: relative;
-            &:before,
-            &:after {
-                content: '';
-                position: absolute;
-                bottom: -5px;
-                height: 3px;
-                width: 0;
-                background-color: red;
-                pointer-events: none;
-            }
-            &:before {
-                left: 0;
-                transition: width 0s $easeDefault;
-            }
-            &:after {
-                right: 0;
-                transition: width .4s $easeDefault;
-            }
-            &:hover {
-                // color: $red;
-                &:before {
-                    width: 100%;
-                    transition: width .4s $easeDefault;
-                }
-                &:after {
-                    width: 100%;
-                    background: 0 0;
-                    transition: all 0s $easeDefault;
-                }
-            }
-        }
-        &:hover {
-            .main-menu__submenu {
-                opacity: 1;
-                width: auto;
-                height: auto;
-                overflow: visible;
-                transform: translateX(-50%) translateY(0);
-            }
+        transition: .3s $easeDefault;
+        @include option(active) {
+            color: #ff5400;
         }
     }
-    @include part(submenu) {
-        position: absolute;
-        top: 100%;
-        left: 50%;
-        background-color: #fff;
-        opacity: 0;
-        height: 0;
-        overflow: hidden;
-        transform: translateX(-50%) translateY(-10px);
-        transition: transform .4s $easeDefault, opacity .4s $easeDefault;
-        &:before {
-            content: '';
-            display: block;
-            height: 0;
-            border: 10px transparent solid;
-            border-bottom-color: #fff;
-            position: absolute;
-            bottom: 100%;
-            left: 50%;
-            margin-left: -10px;
-        }
+    @include breakpoint($desktop-s){
         @include part(link) {
-            a {
-                padding: 0 25px;
-                display: block;
-                font-family: 'Brandon Grotesque';
-                font-size: px-to-em(14, 16);
-                line-height: px-to-em(30, 14);
-                font-weight: 900;
-                text-align: center;
-                color: #fff;
-                transition: .3s $easeDefault;
-                &:hover {
-                    color: #000;
-                    background-color: #ebebeb;
-                }
-            }
-            &:first-child {
-                border-bottom: 1px solid #ebebeb;
-            }
+            font-size: 14px;
+            margin: 0 5px;
         }
     }
-    @include option(left, right) {
-        @include span(6 no-gutters);
+    @include breakpoint($ipad){
+        @include part(link) {
+            font-size: 13px;
+            line-height: 36px;
+        }
     }
-    @include option(left) {
-        padding-right: 120px;
-        text-align: right;
-    }
-    @include option(right) {
-        padding-left: 120px;
-        text-align: left;
-    }
-    @include breakpoint($desktop-s) {
-        @include option(left, right) {
+    @include breakpoint($mobile){
+        @include part(link) {
             font-size: 14px;
-            @include part(link) {
-                margin: 0 2px;
-            }
+            display: block;
+            margin: 0;
         }
     }
 }

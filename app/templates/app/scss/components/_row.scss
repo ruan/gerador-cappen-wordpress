@@ -1,9 +1,0 @@
-@include component(row) {
-    position: relative;
-    margin-left: - gutter();
-    margin-right: - gutter();
-    @include clearfix;
-    @include option(height) {
-        height: 100%;
-    }
-}

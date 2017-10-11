@@ -1,18 +1,18 @@
 /*global module:false*/
 module.exports = function (grunt) {
-    
+
         require('load-grunt-tasks')(grunt, { config: 'package' });
         require('time-grunt')(grunt);
-    
+
         var config = {
             app: 'app',
             theme: 'web/app/themes/<: slug :>'
         };
-    
+
         grunt.initConfig({
-    
+
             config: config,
-    
+
             watch: {
                 bower: {
                     files: ['bower.json'],
@@ -34,13 +34,13 @@ module.exports = function (grunt) {
                 },
                 sourceSass: {
                     files: ['<%= config.app %>/scss/{,**/}*.{scss,sass}'],
-                    tasks: ['sass:app'],
+                    tasks: ['sass_globbing', 'sass:app'],
                     options: {
                         livereload: true
                     }
                 }
             },
-    
+
             fileblocks: {
                 app: {
                     src: '<%= config.theme %>/footer.php',
@@ -62,7 +62,7 @@ module.exports = function (grunt) {
                     }
                 }
             },
-    
+
             processhtml: {
                 options: {
                     commentMarker: 'process'
@@ -77,13 +77,27 @@ module.exports = function (grunt) {
                     }]
                 }
             },
-    
+
             // Empties folders to start fresh
             clean: {
                 app: ['<%= config.theme %>/*', '.tmp/*'],
                 js: ['<%= config.theme %>/scripts/vendor']
             },
-    
+
+            sass_globbing: {
+              my_target: {
+                files: {
+                  '<%= config.app %>/scss/_mixins.scss': ['<%= config.app %>/scss/mixins/**/*.scss'],
+                  '<%= config.app %>/scss/_components.scss': ['<%= config.app %>/scss/components/**/*.scss'],
+                  '<%= config.app %>/scss/_layouts.scss': ['<%= config.app %>/scss/layouts/**/*.scss']
+                }
+              },
+              options: {
+                signature: false,
+                useSingleQuotes: false
+              }
+            },
+
             sass: {
                 app: {
                     files: {
@@ -104,7 +118,7 @@ module.exports = function (grunt) {
                     }
                 }
             },
-    
+
             // Automatically inject Bower components into the HTML file
             wiredep: {
                 app: {
@@ -134,7 +148,7 @@ module.exports = function (grunt) {
                     ]
                 }
             },
-    
+
             // Reads HTML for usemin blocks to enable smart builds that automatically
             // concat, minify and revision files. Creates configurations in memory so
             // additional tasks can operate on them
@@ -144,7 +158,7 @@ module.exports = function (grunt) {
                 },
                 html: ['<%= config.theme %>/header.php', '<%= config.theme %>/footer.php']
             },
-    
+
             // Performs rewrites based on rev and the useminPrepare configuration
             usemin: {
                 // options: {
@@ -153,13 +167,13 @@ module.exports = function (grunt) {
                 html: ['<%= config.theme %>/header.php', '<%= config.theme %>/footer.php']
                 // css: ['<%= config.theme %>/styles/{,*/}*.css']
             },
-    
+
             uglify: {
                 options: {
                     mangle: false
                 }
             },
-    
+
             // Copies remaining files to places other tasks can use
             copy: {
                 app: {
@@ -189,7 +203,7 @@ module.exports = function (grunt) {
                     ]
                 }
             },
-    
+
             // Generates a custom Modernizr build that includes only the tests you
             // reference in your app
             modernizr: {
@@ -206,7 +220,7 @@ module.exports = function (grunt) {
                     uglify: true
                 }
             },
-    
+
             postcss: {
                 options: {
                     map: false,
@@ -218,7 +232,7 @@ module.exports = function (grunt) {
                     src: '<%= config.theme %>/styles/main.css'
                 }
             },
-    
+
             // Run some tasks in parallel to speed up build process
             concurrent: {
                 app: [
@@ -230,24 +244,26 @@ module.exports = function (grunt) {
                     'wiredep:build'
                 ]
             },
-    
+
         });
-    
+
         grunt.registerTask('app', function () {
             grunt.task.run([
                 'clean:app',
                 'wiredep:sass',
+                'sass_globbing',
                 'sass:app',
                 'copy:app',
                 'concurrent:app',
                 'watch'
             ]);
         });
-    
+
         grunt.registerTask('build', function () {
             grunt.task.run([
                 'clean:app',
                 'wiredep:sass',
+                'sass_globbing',
                 'sass:build',
                 'postcss:build',
                 'copy:app',

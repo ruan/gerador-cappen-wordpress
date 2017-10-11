@@ -56,8 +56,10 @@ var CappenWordpressGenerator = yeoman.generators.Base.extend({
             slug: this.slug
         };
 
-        this.template(".gitignore", ".gitignore");
+        this.template(".env.example");
+        this.template(".gitignore");
         this.template("bower.json", "bower.json", context);
+        this.template("composer.json", "composer.json", context);
         this.template("package.json", "package.json", context);
 
         this._.templateSettings.interpolate = /<\:(.+?)\:>/g;
