@@ -27,7 +27,6 @@ function custom_widgets($name = '', $id = '', $class = '', $description = '', $b
 function register_widgets()
 {
     custom_widgets('Social Networks', 'widget-socialnetworks', '', 'Social Networks Widget', '', '', '', '');
-    custom_widgets('Upcoming Party', 'widget-upcoming-party', '', 'Upcoming Party Widget', '', '', '', '');
 }
 
 add_action('init', 'register_widgets');

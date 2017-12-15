@@ -1,6 +1,6 @@
 <?php
 
-define('THEMETXTDOMAIN', 'cavora');
+define('THEMETXTDOMAIN', '<%= slug %>');
 define('THEMEROOT', get_template_directory_uri());
 define('IMG', get_template_directory_uri() . '/img/');
 

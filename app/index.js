@@ -42,6 +42,7 @@ var CappenWordpressGenerator = yeoman.generators.Base.extend({
             }
         ];
         this.prompt(prompts, function (props) {
+            this.name = props.appName;
             this.slug = this._.slugify(props.appName);
             this.plugins = props.plugins;
             done();
@@ -52,12 +53,23 @@ var CappenWordpressGenerator = yeoman.generators.Base.extend({
             this.templatePath('**'),
             this.destinationPath('')
         )
+
+        var comment = '/*\n';
+            comment += 'Theme Name: ' + this.name + '\n';
+            comment += 'Author: Cappen\n';
+            comment += 'Author URI: http://cappen.com/\n';
+            comment += 'Version: 1.0.0\n';
+            comment += '*/';
+
         var context = {
-            slug: this.slug
+            slug: this.slug,
+            theme_info: comment
         };
 
         this.template(".env.example");
         this.template(".gitignore");
+        this.template("app/style.css", "app/style.css", context);
+        this.template("app/functions.php", "app/functions.php", context);
         this.template("bower.json", "bower.json", context);
         this.template("composer.json", "composer.json", context);
         this.template("package.json", "package.json", context);

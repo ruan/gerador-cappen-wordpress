@@ -74,7 +74,7 @@ function theme_support()
     );
 
     // Pots Thumbnails
-    add_theme_support('post-thumbnails', ['page', 'post', 'events']);
+    add_theme_support('post-thumbnails', ['page', 'post', 'blog', 'statistics', 'say-no', 'slider', 'cta']);
 }
 
 /**
@@ -84,12 +84,7 @@ function theme_support()
  */
 function post_thumbnails()
 {
-    add_image_size('post-thumb', 325, 217, true);
-    add_image_size('hero-home', 1440, 654, true);
-    add_image_size('hero-internal', 1440, 392, true);
-    add_image_size('gallery', 1375, 735, true);
-    add_image_size('happenings-large', 1920, 1280, true);
-    add_image_size('happenings-thumb', 410, 500, true);
+    add_image_size('banner', 1900, 1080, true);
 }
 
 /**
@@ -143,201 +138,10 @@ function wp_get_attachment($attachment_id = 0)
 }
 
 /**
- * List all items from menu
- *
- * @param  string $menuName
- * @return array
+ * SVG support
  */
-function wp_get_menu_array($menuName = "")
-{
-    $listMenu = wp_get_nav_menu_items($menuName);
-
-    $menu = [];
-
-    foreach ($listMenu as $m) {
-        $menu[$m->ID] = [];
-        $menu[$m->ID]['ID'] = $m->ID;
-        $menu[$m->ID]['title'] = $m->title;
-        $menu[$m->ID]['url'] = $m->url;
-
-        if (empty($m->menu_item_parent)) {
-            $menu[$m->ID]['children'] = [];
-        } else {
-            $menu[$m->menu_item_parent]['children'][$m->ID] = $menu[$m->ID];
-        }
-    }
-
-    return $menu;
+function cc_mime_types($mimes) {
+    $mimes['svg'] = 'image/svg+xml';
+    return $mimes;
 }
-
-/**
- * Search in multidimensional array
- *
- * @param  string $value
- * @param  string $item
- * @param  array  $array
- * @return mixed
- */
-function multiSearch($value = "", $item = "", $array = [])
-{
-    foreach ($array as $key => $val) {
-        if ($val['title'] === $value) {
-            return $array[$key][$item];
-        }
-    }
-
-    return null;
-}
-
-/**
- * Add columns to events post list
- *
- * @param string $columns
- */
-function add_acf_columns_to_events($columns = '')
-{
-    return array_merge($columns, array(
-        'date' => __('Published Date'),
-        'event_datetime' => __('Event Date'),
-        'event_type' => __('Type'),
-    ));
-}
-add_filter('manage_events_posts_columns', 'add_acf_columns_to_events');
-
-/**
- * Add columns to events post list
- *
- * @param  string  $column
- * @param  integer $post_id
- * @return string
- */
-function events_custom_column($column = '', $post_id = 0)
-{
-    switch($column) {
-        case 'event_datetime':
-            echo get_post_meta($post_id, 'event_datetime', true);
-            break;
-        case 'event_type':
-            $type = get_post_meta($post_id, 'event_type', true);
-            echo ($type == 'home' ? 'Home Game day' : ($type == 'away' ? 'Away Game day' : 'Non Game day'));
-            break;
-    }
-}
-add_action ('manage_events_posts_custom_column', 'events_custom_column', 10, 2);
-
-/**
- * Add option to sort custom fields
- *
- * @param  string $columns
- * @return array
- */
-function sortable_events_column($columns = "")
-{
-    $columns['event_datetime'] = 'event_datetime';
-    $columns['event_type'] = 'event_type';
-
-    return $columns;
-}
-add_filter('manage_edit-events_sortable_columns', 'sortable_events_column');
-
-/**
- * Order by custom field
- *
- * @param  string $query
- * @return void
- */
-function sort_events_by_meta_value($query = "")
-{
-    global $pagenow;
-
-    if (is_admin() && $pagenow == 'edit.php' &&
-        isset($_GET['post_type']) && $_GET['post_type'] == 'events')  {
-        $query->query_vars['meta_key'] = 'event_datetime';
-        $query->query_vars['orderby'] = 'meta_value';
-        $query->query_vars['order'] = 'desc';
-    }
-}
-add_filter('parse_query', 'sort_events_by_meta_value');
-
-add_action('wp_ajax_events_posts_json', 'events_posts_json');
-add_action('wp_ajax_nopriv_events_posts_json', 'events_posts_json');
-function events_posts_json()
-{
-    $date = $_GET['date'] ?: date('Y-m');
-
-    $args = [
-        'post_type' => 'events',
-        'post_parent' => 0,
-        'posts_per_page' => -1,
-        'orderby' => 'meta_value',
-        'order' => 'asc',
-        'meta_key' => 'event_datetime',
-        'meta_query' => [
-            [
-                'key' => 'event_datetime',
-                'value' => $date,
-                'compare' => 'LIKE',
-            ]
-        ],
-    ];
-
-    $eventsByYearMonth = new WP_Query($args);
-
-    $jsonData = [];
-
-    if ($eventsByYearMonth->have_posts()) {
-        while ($eventsByYearMonth->have_posts()) {
-            $eventsByYearMonth->the_post();
-            $image = has_post_thumbnail() ? $img = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), 'happenings-thumb') : '';
-
-            $jsonData[] = [
-                'id' => get_the_ID(),
-                'permalink' => get_permalink($post->ID),
-                'title' => get_the_title(),
-                'subtitle' => get_field('event_subtitle', $post->ID),
-                'description' => get_field('event_description', $post->ID),
-                'type' => get_field('event_type', $post->ID),
-                'datetime' => get_field('event_datetime', $post->ID),
-                'place' => get_field('event_place', $post->ID),
-                'url' => get_field('event_reserve_url', $post->ID),
-                'featured_image' => $image ? $image[0] : '',
-            ];
-        }
-
-        wp_reset_postdata();
-    }
-
-    echo wp_send_json($jsonData); exit;
-}
-
-add_action('wp_ajax_events_posts_max_date_json', 'events_posts_max_date_json');
-add_action('wp_ajax_nopriv_events_posts_max_date_json', 'events_posts_max_date_json');
-function events_posts_max_date_json()
-{
-    $args = [
-        'post_type' => 'events',
-        'post_parent' => 0,
-        'posts_per_page' => 1,
-        'orderby' => 'meta_value',
-        'order' => 'desc',
-        'meta_key' => 'event_datetime'
-    ];
-
-    $eventsMaxDate = new WP_Query($args);
-
-    $jsonData = [];
-
-    if ($eventsMaxDate->have_posts()) {
-        while ($eventsMaxDate->have_posts()) {
-            $eventsMaxDate->the_post();
-
-            $jsonData = [
-                'datetime' => get_field('event_datetime', $post->ID),
-            ];
-        }
-
-        wp_reset_postdata();
-    }
-
-    echo wp_send_json($jsonData); exit;
-}
+add_filter('upload_mimes', 'cc_mime_types');

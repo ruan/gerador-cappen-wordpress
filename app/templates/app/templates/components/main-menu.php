@@ -1,6 +1,5 @@
 <?php
-
-$defaults = [
+  $defaults = [
     'theme_location' => 'menu',
     'menu' => '',
     'container' => '',
@@ -14,10 +13,10 @@ $defaults = [
     'after' => '',
     'link_before' => '',
     'link_after' => '',
-    'items_wrap' => '<ul class="main-menu' . (is_front_page() ? ' --left' : '') . '">%3$s</ul>',
+    'items_wrap' => '<nav class="main-menu">%3$s</nav>',
     'depth' => 0,
     'walker' => new Menu(),
     'isMobile' => false,
-];
-
-wp_nav_menu($defaults);
+  ];
+  wp_nav_menu($defaults);
+?>
