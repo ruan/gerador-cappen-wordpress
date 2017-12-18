@@ -58,7 +58,7 @@ function custom_taxonomy($plural = '', $singular = '', $slug = '', $article = ''
  */
 function register_taxonomies()
 {
-    custom_taxonomy('Categorias', 'Categoria', 'categoria', 'a', ['post'], true);
+    // custom_taxonomy('Categorias', 'Categoria', 'categoria', 'a', ['post'], true);
 }
 
 add_action('init', 'register_taxonomies');
