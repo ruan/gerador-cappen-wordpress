@@ -67,7 +67,7 @@ var CappenWordpressGenerator = yeoman.generators.Base.extend({
         };
 
         this.template(".env.example");
-        this.template(".gitignore");
+        this.template(".npmignore",".gitignore");
         this.template("app/style.css", "app/style.css", context);
         this.template("app/functions.php", "app/functions.php", context);
         this.template("bower.json", "bower.json", context);
