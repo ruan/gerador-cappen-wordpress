@@ -62,11 +62,13 @@ var CappenWordpressGenerator = yeoman.generators.Base.extend({
             comment += '*/';
 
         var context = {
+            name: this.name,
             slug: this.slug,
             theme_info: comment
         };
 
         this.template(".env.example");
+        this.template(".editorconfig");
         this.template(".npmignore",".gitignore");
         this.template("app/style.css", "app/style.css", context);
         this.template("app/functions.php", "app/functions.php", context);
@@ -79,6 +81,7 @@ var CappenWordpressGenerator = yeoman.generators.Base.extend({
         this._.templateSettings.evaluate = /<\:=(.*?)\:>/g;
 
         this.template("Gruntfile.js", "Gruntfile.js", context);
+        this.template("README.md", "README.md", context);
     },
     installPlugins: function(){
         this.bowerInstall(this.plugins,{save:true});
