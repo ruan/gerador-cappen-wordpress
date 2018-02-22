@@ -75,13 +75,13 @@ var CappenWordpressGenerator = yeoman.generators.Base.extend({
         this.template("bower.json", "bower.json", context);
         this.template("composer.json", "composer.json", context);
         this.template("package.json", "package.json", context);
+        this.template("README.md", "README.md", context);
 
         this._.templateSettings.interpolate = /<\:(.+?)\:>/g;
         this._.templateSettings.escape = /<\:-(.*?)\:>/g;
         this._.templateSettings.evaluate = /<\:=(.*?)\:>/g;
 
         this.template("Gruntfile.js", "Gruntfile.js", context);
-        this.template("README.md", "README.md", context);
     },
     installPlugins: function(){
         this.bowerInstall(this.plugins,{save:true});
