@@ -1,4 +1,4 @@
-# Generator Cappen Wordpress
+# Generator Wordpress
 
 
 ## Requirements:
